@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 import os
 
 
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:Betelgeuse@localhost:5432/ragna_flet")
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///ragnaflet.db")
 engine = create_engine(DATABASE_URL, echo=True)
 SessionLocal = sessionmaker(bind=engine)
 Base = declarative_base()
@@ -22,3 +22,6 @@ class Character(Base):
 
 def init_db():
     Base.metadata.create_all(engine)
+
+
+# Local Postgresql Database: postgresql://postgres:Betelgeuse@localhost:5432/ragna_flet

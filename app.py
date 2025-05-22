@@ -15,5 +15,5 @@ def main(page: ft.Page):
     page.go(page.route)
 
 
-# ft.app(target=main, view=ft.WEB_BROWSER, port=8550)  # Dev Mode WEB
-ft.app(target=main, view=None, port=int(os.getenv("PORT", 8080)))  # Prod Mode
+ft.app(target=main)  # Dev Mode
+# ft.app(target=main, port=int(os.getenv("PORT", 8080)))  # Prod Mode
