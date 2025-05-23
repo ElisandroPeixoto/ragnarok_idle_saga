@@ -8,7 +8,7 @@ def create_character(page: ft.Page):
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
 
     sprite = ft.Image(
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png",
+        src="char_sprites/0.Novice_Sprite.png",
         width=80,
         height=160,
         fit=ft.ImageFit.CONTAIN

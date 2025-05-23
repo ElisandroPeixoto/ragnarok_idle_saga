@@ -12,7 +12,7 @@ def select_char(page: ft.Page):
     characters_query = database.query(Character).all()
 
     def character_card(char: Character):
-        image = "https://static.divine-pride.net/images/skilltree/jobs/4303.png"  # Add URL of the image
+        image = "char_sprites/0.Novice_Sprite.png"
 
         interface = ft.Container(
             content=ft.Column(
