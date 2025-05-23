@@ -15,5 +15,5 @@ def main(page: ft.Page):
     page.go(page.route)
 
 
-ft.app(target=main, assets_dir="assets")  # Dev Mode
-# ft.app(target=main, port=int(os.getenv("PORT", 8080)))  # Prod Mode
+# ft.app(target=main, assets_dir="assets")  # Dev Mode
+ft.app(target=main, assets_dir="assets", port=int(os.getenv("PORT", 8080)))  # Prod Mode
