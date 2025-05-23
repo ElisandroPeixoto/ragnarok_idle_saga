@@ -5,8 +5,8 @@ from db_manager import SessionLocal, Character
 def select_char(page: ft.Page):
     page.title = "Character Selection"
     page.bgcolor = "#E4E4E4"
-    page.vertical_alignment = ft.MainAxisAlignment.CENTER
-    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+    # page.vertical_alignment = ft.MainAxisAlignment.CENTER
+    # page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
 
     database = SessionLocal()  # Open Database
     characters_query = database.query(Character).all()
@@ -15,8 +15,7 @@ def select_char(page: ft.Page):
         image = "char_sprites/0.Novice_Sprite.png"
 
         interface = ft.Container(
-            content=ft.Column(
-                controls=[
+            content=ft.Column(controls=[
                     ft.Image(src=image, width=80, height=160, fit=ft.ImageFit.CONTAIN),
                     ft.Text(char.name, size=20, weight=ft.FontWeight.BOLD),
                     ft.Text(char.job, size=14, color=ft.Colors.GREY),

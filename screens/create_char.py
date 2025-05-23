@@ -49,7 +49,9 @@ def create_character(page: ft.Page):
     btn_back = ft.ElevatedButton(text="Back", on_click=lambda e: page.go("/"))
 
 
-    return ft.Column(
-        controls=[sprite, input_name, btn_create, btn_back],
-        horizontal_alignment=ft.CrossAxisAlignment.CENTER
-    )
+    screen_container = ft.Column(
+        controls=[sprite, input_name, btn_create, btn_back], 
+        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+        )
+
+    return screen_container
