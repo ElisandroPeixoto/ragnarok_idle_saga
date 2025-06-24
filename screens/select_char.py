@@ -38,7 +38,6 @@ def select_char(page: ft.Page):
         )
 
         return interface
-    
     cards = [character_card(char) for char in characters_query]
 
     grid = ft.GridView(
@@ -50,13 +49,49 @@ def select_char(page: ft.Page):
         controls=cards
     )
 
+    # Buttons
 
-    button = ft.ElevatedButton(text="New Char", on_click=lambda e: page.go("/create_char"))
+    new_char = ft.ElevatedButton(
+        text="New Character",
+        width=180,
+        height=45,
+        bgcolor=ft.Colors.BLUE_300,
+        color=ft.Colors.BLACK,
+        on_click=lambda e: page.go("/create_char"))
+    
+    delete_char = ft.ElevatedButton(
+        text="Delete Character",
+        width=180,
+        height=45,
+        bgcolor=ft.Colors.BLUE_300,
+        color=ft.Colors.BLACK)
+    
+    start_game = ft.ElevatedButton(
+        text="Start Game",
+        width=180,
+        height=45,
+        bgcolor=ft.Colors.BLUE_300,
+        color=ft.Colors.BLACK)
+
+    column1 = ft.Column(
+        controls=[new_char, delete_char],
+        spacing=20
+    )
+
+    column2 = ft.Column(
+        controls=[ft.Container(height=45), start_game],
+        spacing=20
+    )
+
+    row1 = ft.Row(
+        controls=[column1, column2],
+        alignment=ft.MainAxisAlignment.CENTER,
+        spacing=20
+    )
+
 
     return ft.Column(
-        controls=[button,
-                  ft.Container(height=20),
-                  grid],
+        controls=[ft.Container(height=20), grid, ft.Container(content=row1, alignment=ft.alignment.center, expand=True, padding=ft.padding.only(top=80))],
                   expand=True,
                   horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                   scroll=ft.ScrollMode.AUTO,
