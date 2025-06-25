@@ -1,6 +1,6 @@
 import flet as ft
-from routes import route_handler
-from db_manager import init_db
+from utils.routes import route_handler
+from models.db_manager import init_db
 import os
 
 

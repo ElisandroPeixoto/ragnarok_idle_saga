@@ -1,5 +1,5 @@
 import flet as ft
-from db_manager import SessionLocal, Character
+from models.db_manager import SessionLocal, Character
 
 def create_character(page: ft.Page):
     page.title = "Character Selection"
