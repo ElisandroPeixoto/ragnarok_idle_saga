@@ -1,5 +1,7 @@
 import flet as ft
 from models.db_manager import SessionLocal, Character
+from components import buttons as btns
+
 
 def create_character(page: ft.Page):
     page.title = "Character Selection"
@@ -45,9 +47,9 @@ def create_character(page: ft.Page):
             snack.open = True
             page.update()
 
-    btn_create = ft.ElevatedButton(text="Create", on_click=new_char)
-    btn_back = ft.ElevatedButton(text="Back", on_click=lambda e: page.go("/"))
 
+    btn_create = btns.ElevatedButton1.apply_button(text_input="Create", on_click_input=new_char)
+    btn_back = btns.ElevatedButton1.apply_button(text_input="Back", on_click_input=lambda e: page.go("/"))
 
     screen_container = ft.Column(
         controls=[sprite, input_name, btn_create, btn_back], 
