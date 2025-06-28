@@ -1,5 +1,5 @@
 import flet as ft
-from models.db_manager import Character
+from models.db_manager import Character, SessionLocal
 
 
 def character_card(char: Character):
@@ -8,11 +8,11 @@ def character_card(char: Character):
         interface = ft.Container(
             content=ft.Column(controls=[
                     ft.Image(src=image, width=80, height=160, fit=ft.ImageFit.CONTAIN),
-                    ft.Text(char.name, size=20, weight=ft.FontWeight.BOLD, color=ft.Colors.GREY),
-                    ft.Text(char.job, size=14, color=ft.Colors.GREY),
-                    ft.Text(f"Level: {char.level}", size=14),
-                    ft.Text(f"EXP: {char.exp}", size=14),
-                    ft.Text(f"HP: {char.hp}", size=14)
+                    ft.Text(char.name, size=20, weight=ft.FontWeight.BOLD, color=ft.Colors.BLACK),
+                    ft.Text(char.job, size=14, color=ft.Colors.BLACK),
+                    ft.Text(f"Level: {char.level}", size=14, color=ft.Colors.BLACK),
+                    ft.Text(f"EXP: {char.exp}", size=14, color=ft.Colors.BLACK),
+                    ft.Text(f"HP: {char.hp}", size=14, color=ft.Colors.BLACK)
                 ],
                 alignment=ft.MainAxisAlignment.CENTER,
                 tight=True,

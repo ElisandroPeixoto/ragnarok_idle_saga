@@ -23,6 +23,14 @@ def create_character(page: ft.Page):
         label_style=ft.TextStyle(color=ft.Colors.BLACK),
         focused_border_color="#0000FF"
         )
+    
+    confirmation_text = ft.Text(
+        "",
+        color=ft.Colors.GREEN_700,
+        size=16,
+        weight=ft.FontWeight.BOLD,
+        visible=False
+    )
 
     def new_char(event):
         char_name = input_name.value.strip()
@@ -37,22 +45,18 @@ def create_character(page: ft.Page):
             db.add(new_character)
             db.commit()
             db.refresh(new_character)
+            db.close()
 
-            snack = ft.SnackBar(
-            ft.Text(f"Personagem '{char_name}' criado com sucesso!"),
-            bgcolor=ft.Colors.GREEN_700,
-            duration=3000
-            )
-            page.overlay.append(snack)
-            snack.open = True
+            confirmation_text.value = f"Personagem '{char_name}' criado com sucesso!"
+            confirmation_text.visible = True
+
             page.update()
-
 
     btn_create = btns.ElevatedButton1.apply_button(text_input="Create", on_click_input=new_char)
     btn_back = btns.ElevatedButton1.apply_button(text_input="Back", on_click_input=lambda e: page.go("/"))
 
     screen_container = ft.Column(
-        controls=[sprite, input_name, btn_create, btn_back], 
+        controls=[sprite, input_name, confirmation_text, btn_create, btn_back], 
         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
         )
 

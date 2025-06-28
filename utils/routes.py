@@ -1,6 +1,6 @@
 import flet as ft
-from screens.create_char import create_character
-from screens.select_char import select_char
+from views.create_char import create_character
+from views.select_char import select_char
 
 
 def route_handler(route, page: ft.Page):
