@@ -1,12 +1,13 @@
 import flet as ft
 from models.db_manager import SessionLocal, Character
 from components import buttons as btns
+from services.character_services import CharacterService
 
 def select_char(page: ft.Page):
     database = SessionLocal()  # Open Database
     characters_query = database.query(Character).all()
 
-    selected_char = {"current": None}
+    selected_character = None
 
     ### INTERFACE ###
 
@@ -60,11 +61,12 @@ def select_char(page: ft.Page):
 
     # Character Selection
     def select_char(character: Character):
-        selected_char["current"] = character
+         
+        nonlocal selected_character
+        selected_character = character
 
         for card in cards:
-            if hasattr(card, 'data') and card.data == character:
-                print(card.data)  # Debug
+            if card.data == character:
                 card.border = ft.border.all(3, ft.Colors.BLUE)
                 card.bgcolor = ft.Colors.BLUE_50
             else:
@@ -73,9 +75,17 @@ def select_char(page: ft.Page):
         
         page.update()
 
+
+    # Character Delete
+    def handle_character_delete(e):
+        if selected_character:    
+            CharacterService.delete_character(selected_character.name)
+
+        page.update()
+
     # Buttons
     btn_new_char = btns.ElevatedButton1.apply_button(text_input="New Character", on_click_input=lambda e: page.go("/create_char"))
-    btn_delete_char = btns.ElevatedButton1.apply_button(text_input="Delete Character")
+    btn_delete_char = btns.ElevatedButton1.apply_button(text_input="Delete Character", on_click_input=handle_character_delete)
     btn_start_game = btns.ElevatedButton1.apply_button(text_input="Start Game")
 
 

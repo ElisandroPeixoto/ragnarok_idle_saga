@@ -3,7 +3,7 @@ from models.db_manager import SessionLocal, Character
 
 class CharacterService:
     @staticmethod
-    def create_character(name: str, job: str = "Novice") -> Character:
+    def create_character(name: str, job: str = "Novice"):
         """Create a new character in the database."""
 
         try:
@@ -42,3 +42,22 @@ class CharacterService:
                 "success": False,
                 "message": "An error occurred while creating the character."
             }
+
+    @staticmethod
+    def delete_character(char_name: str):
+        """Delete a character from the database"""
+        db = SessionLocal()
+
+        character = db.query(Character).filter(Character.name == char_name).first()
+
+        character_to_be_deleted = character.name
+
+        db.delete(character)
+        db.commit()
+        db.close()
+
+        return {
+            "success": True,
+            "message": f'Character {character_to_be_deleted} deleted successfully'
+        }
+        
