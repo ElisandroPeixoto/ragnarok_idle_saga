@@ -1,6 +1,7 @@
 import flet as ft
 from models.db_manager import SessionLocal, Character
 from components import buttons as btns
+from services.character_services import CharacterService
 
 
 def create_character(page: ft.Page):
@@ -26,33 +27,32 @@ def create_character(page: ft.Page):
     
     confirmation_text = ft.Text(
         "",
-        color=ft.Colors.GREEN_700,
         size=16,
         weight=ft.FontWeight.BOLD,
         visible=False
     )
 
-    def new_char(event):
+
+    def handle_character_creation(event):
+
         char_name = input_name.value.strip()
-        if char_name:
-            db = SessionLocal()
+        results = CharacterService.create_character(char_name)
 
-            new_character = Character(
-                name=char_name,
-                job="Novice"
-            )
-
-            db.add(new_character)
-            db.commit()
-            db.refresh(new_character)
-            db.close()
-
-            confirmation_text.value = f"Personagem '{char_name}' criado com sucesso!"
+        if results["success"]:
+            confirmation_text.value = results["message"]
             confirmation_text.visible = True
+            confirmation_text.color = ft.Colors.GREEN_700
+            input_name.value = ""
 
-            page.update()
+        else:
+            confirmation_text.value = results["message"]
+            confirmation_text.visible = True
+            confirmation_text.color = ft.Colors.RED_700   
 
-    btn_create = btns.ElevatedButton1.apply_button(text_input="Create", on_click_input=new_char)
+        page.update() 
+    
+
+    btn_create = btns.ElevatedButton1.apply_button(text_input="Create", on_click_input=handle_character_creation)
     btn_back = btns.ElevatedButton1.apply_button(text_input="Back", on_click_input=lambda e: page.go("/"))
 
     screen_container = ft.Column(
