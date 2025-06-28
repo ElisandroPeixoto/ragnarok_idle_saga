@@ -6,6 +6,8 @@ def select_char(page: ft.Page):
     database = SessionLocal()  # Open Database
     characters_query = database.query(Character).all()
 
+    selected_char = {"current": None}
+
     ### INTERFACE ###
 
     page.title = "Character Selection"
@@ -36,7 +38,10 @@ def select_char(page: ft.Page):
             width=180,
             height=450,
             alignment=ft.alignment.center,
-            shadow=ft.BoxShadow(blur_radius=5, color=ft.Colors.BLACK12, offset=ft.Offset(2, 2))
+            shadow=ft.BoxShadow(blur_radius=5, color=ft.Colors.BLACK12, offset=ft.Offset(2, 2)),
+            border=ft.border.all(3, ft.Colors.TRANSPARENT),
+            data=char,
+            on_click=lambda e, character_selected=char: select_char(character_selected),
         )
 
         return interface
@@ -51,6 +56,22 @@ def select_char(page: ft.Page):
         run_spacing=10,
         controls=cards
     )
+
+
+    # Character Selection
+    def select_char(character: Character):
+        selected_char["current"] = character
+
+        for card in cards:
+            if hasattr(card, 'data') and card.data == character:
+                print(card.data)  # Debug
+                card.border = ft.border.all(3, ft.Colors.BLUE)
+                card.bgcolor = ft.Colors.BLUE_50
+            else:
+                card.border = ft.border.all(3, ft.Colors.TRANSPARENT)
+                card.bgcolor = ft.Colors.WHITE
+        
+        page.update()
 
     # Buttons
     btn_new_char = btns.ElevatedButton1.apply_button(text_input="New Character", on_click_input=lambda e: page.go("/create_char"))
