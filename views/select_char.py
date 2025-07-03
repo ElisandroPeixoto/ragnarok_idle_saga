@@ -85,11 +85,30 @@ def char_selection(page: ft.Page):
 
     # Character Delete
     def handle_character_delete(e):
-        if selected_character:
+        if not selected_character:
+            return
+        
+        def confirm_delete(e):
             CharacterService.delete_character(selected_character.name)
             load_characters()
+            page.close(delete_dialog)
+            page.update()
 
-        page.update()
+        def cancel_delete(e):
+            page.close(delete_dialog)
+
+        delete_dialog = ft.AlertDialog(
+            modal=True,
+            title=ft.Text("Delete Confirmation"),
+            content=ft.Text(f"Are you sure you want to delete '{selected_character.name}'?\n\nThis action cannot be undone."),
+            actions=[
+                ft.TextButton("Cancel", on_click=cancel_delete),
+                ft.TextButton("Confirm", on_click=confirm_delete, style=ft.ButtonStyle(color=ft.Colors.RED))
+            ],
+            actions_alignment=ft.MainAxisAlignment.END,
+        )
+
+        page.open(delete_dialog)
 
 
     # Buttons
