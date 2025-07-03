@@ -1,13 +1,13 @@
 import flet as ft
 from views.create_char import create_character
-from views.select_char import select_char
+from views.select_char import char_selection
 
 
 def route_handler(route, page: ft.Page):
     page.controls.clear()
 
     if route == "/":
-        page.add(select_char(page))
+        page.add(char_selection(page))
     elif route == "/create_char":
         page.add(create_character(page))
     else:

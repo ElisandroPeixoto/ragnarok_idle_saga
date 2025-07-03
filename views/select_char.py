@@ -3,7 +3,7 @@ from models.db_manager import SessionLocal, Character
 from components import buttons as btns
 from services.character_services import CharacterService
 
-def select_char(page: ft.Page):
+def char_selection(page: ft.Page):
 
     # Initialization
     database = SessionLocal()
