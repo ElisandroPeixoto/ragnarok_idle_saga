@@ -1,6 +1,6 @@
 import flet as ft
-from routes import route_handler
-from db_manager import init_db
+from utils.routes import route_handler
+from models.db_manager import init_db
 import os
 
 
@@ -16,4 +16,5 @@ def main(page: ft.Page):
 
 
 # ft.app(target=main, assets_dir="assets")  # Dev Mode
-ft.app(target=main, assets_dir="assets", port=int(os.getenv("PORT", 8080)))  # Prod Mode
+ft.app(target=main, assets_dir="assets", view=ft.WEB_BROWSER, port=8080)  # Dev Mode
+# ft.app(target=main, port=int(os.getenv("PORT", 8080)))  # Prod Mode
