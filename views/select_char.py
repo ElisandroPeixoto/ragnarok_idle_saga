@@ -2,6 +2,7 @@ import flet as ft
 from models.db_manager import SessionLocal, Character
 from components import buttons as btns
 from services.character_services import CharacterService
+from services.sprite_selector import get_char_image_by_job
 
 def char_selection(page: ft.Page):
 
@@ -30,7 +31,7 @@ def char_selection(page: ft.Page):
         
         # Character Cards
         def character_card(char: Character):
-            image = "char_sprites/0.Novice_Sprite.png"
+            image = get_char_image_by_job(char.job)
 
             interface = ft.Container(
                 content=ft.Column(controls=[
@@ -71,6 +72,8 @@ def char_selection(page: ft.Page):
         
         nonlocal selected_character
         selected_character = character
+
+        page.client_storage.set("character_ingame_name", character.name)
 
         for card in grid.controls:
             if card.data == character:

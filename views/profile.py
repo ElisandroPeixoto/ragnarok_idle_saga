@@ -1,4 +1,6 @@
 import flet as ft
+from models.db_manager import SessionLocal, Character
+from services.sprite_selector import get_char_image_by_job
 
 
 def profile_character(page: ft.Page):
@@ -7,8 +9,25 @@ def profile_character(page: ft.Page):
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
 
-    first_text = ft.Text("Profile Page")
+    # Get the Character selected from the previous page
+    database = SessionLocal()
+    name_character_ingame = page.client_storage.get("character_ingame_name")
+    character = database.query(Character).filter_by(name=name_character_ingame).first()
+    
+    # Interface Data
+    character_sprite = ft.Image(
+        src=get_char_image_by_job(character.job),
+        width=80,
+        height=160,
+        fit=ft.ImageFit.CONTAIN
+    )
 
-    return ft.Column(controls=[first_text], 
+    character_name =  ft.Text(character.name)
+
+    character_job = ft.Text(character.job)
+
+    character_zeny = ft.Text(character.zeny)
+
+    return ft.Column(controls=[character_sprite, character_name, character_job, character_zeny], 
                      expand=True,
                      horizontal_alignment=ft.CrossAxisAlignment.CENTER)
