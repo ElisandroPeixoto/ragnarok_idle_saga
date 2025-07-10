@@ -114,7 +114,7 @@ def char_selection(page: ft.Page):
     # Buttons
     btn_new_char = btns.ElevatedButton1.apply_button(text_input="New Character", on_click_input=lambda e: page.go("/create_char"))
     btn_delete_char = btns.ElevatedButton1.apply_button(text_input="Delete Character", on_click_input=handle_character_delete)
-    btn_start_game = btns.ElevatedButton1.apply_button(text_input="Start Game")
+    btn_start_game = btns.ElevatedButton1.apply_button(text_input="Start Game", on_click_input=lambda e: page.go("/profile"))
 
 
     # Interface Components Building

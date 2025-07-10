@@ -5,7 +5,7 @@ from services.character_services import CharacterService
 
 
 def create_character(page: ft.Page):
-    page.title = "Character Selection"
+    page.title = "Create Character"
     page.bgcolor = "#E4E4E4"
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER

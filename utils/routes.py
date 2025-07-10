@@ -1,6 +1,7 @@
 import flet as ft
 from views.create_char import create_character
 from views.select_char import char_selection
+from views.profile import profile_character
 
 
 def route_handler(route, page: ft.Page):
@@ -10,6 +11,8 @@ def route_handler(route, page: ft.Page):
         page.add(char_selection(page))
     elif route == "/create_char":
         page.add(create_character(page))
+    elif route == "/profile":
+        page.add(profile_character(page))
     else:
         page.add(ft.Text("404 - Not Found"))
 
