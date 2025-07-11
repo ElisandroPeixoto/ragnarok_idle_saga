@@ -19,8 +19,11 @@ class Character(Base):
     level = Column(Integer, default=1, nullable=False)
     exp = Column(Integer, default=0, nullable=False)
     hp = Column(Integer, default=50, nullable=False)
+    sp = Column(Integer, default=50, nullable=False)
     current_map = Column(String, default="")
     zeny = Column(Numeric(10, 2), nullable=False, default=Decimal("0.00"))
+    max_hp = Column(Integer, default=50, nullable=False)
+    max_sp = Column(Integer, default=50, nullable=False)
 
 
 def init_db():
