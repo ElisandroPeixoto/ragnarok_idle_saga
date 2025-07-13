@@ -18,6 +18,7 @@ def build_hp_bar(current_hp: int, max_hp: int, bar_width: int = 300):
         bgcolor=ft.Colors.GREY_300,
         border_radius=5,
         content=ft.Column([
+            ft.Text("HP", color=ft.Colors.BLACK),
             ft.Container(
                 width=bar_width * hp_percent,
                 height=15,
@@ -48,6 +49,7 @@ def build_sp_bar(current_sp: int, max_sp: int, bar_width: int = 300):
         bgcolor=ft.Colors.GREY_300,
         border_radius=5,
         content=ft.Column([
+            ft.Text("SP", color=ft.Colors.BLACK),
             ft.Container(
                 width=bar_width * sp_percent,
                 height=15,

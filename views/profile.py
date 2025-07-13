@@ -8,15 +8,14 @@ def profile_character(page: ft.Page):
     page.title = "Profile"
     page.bgcolor = "#E4E4E4"
     page.scroll = ft.ScrollMode.AUTO
-    page.vertical_alignment = ft.MainAxisAlignment.CENTER
-    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
 
     # Get the Character selected from the previous page
     database = SessionLocal()
     name_character_ingame = page.client_storage.get("character_ingame_name")
     character = database.query(Character).filter_by(name=name_character_ingame).first()
     
-    # Interface Data
+
+    ## Main Card - Character Data
     character_sprite = ft.Image(
         src=get_char_image_by_job(character.job),
         width=80,
@@ -24,11 +23,28 @@ def profile_character(page: ft.Page):
         fit=ft.ImageFit.CONTAIN
     )
 
-    character_name =  ft.Text(character.name, color=ft.Colors.BLACK)
-    character_job = ft.Text(character.job, color=ft.Colors.BLACK)
-    character_zeny = ft.Text(character.zeny, color=ft.Colors.BLACK)
+    column_main_data = ft.Column(controls=[
+        ft.Text(character.name, color=ft.Colors.BLACK, size=20),
+        ft.Text(f"Job: {character.job}", color=ft.Colors.BLACK), 
+        ft.Text(f"Level: {character.level}", color=ft.Colors.BLACK), 
+        ft.Text(f"EXP: {character.exp}", color=ft.Colors.BLACK),
+        ft.Text(f"Zeny: {character.zeny}z", color=ft.Colors.BLACK)],
+        
+        alignment=ft.MainAxisAlignment.CENTER)
 
+    main_card = ft.Row(controls=[character_sprite, column_main_data])
 
-    return ft.Column(controls=[character_sprite, character_name, character_job, character_zeny, build_hp_bar(2, 50), build_sp_bar(10, 50)], 
-                     expand=True,
-                     horizontal_alignment=ft.CrossAxisAlignment.CENTER)
+    character_data_card = ft.Container(
+        content=main_card
+        )
+
+    ## HP and SP
+    hp_and_sp_bars = ft.Container(
+        content=ft.ResponsiveRow(
+            controls=[ft.Column([build_hp_bar(character.hp, character.max_hp)], col={"sm": 12, "md": 6}), 
+                      ft.Column([build_sp_bar(character.sp, character.max_sp)], col={"sm": 12, "md": 6})]),
+        expand=True,
+        width=600
+        )
+
+    return ft.Column(controls=[character_data_card, hp_and_sp_bars])
