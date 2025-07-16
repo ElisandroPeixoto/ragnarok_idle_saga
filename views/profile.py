@@ -8,6 +8,24 @@ def profile_character(page: ft.Page):
     page.title = "Profile"
     page.bgcolor = "#E4E4E4"
     page.scroll = ft.ScrollMode.AUTO
+    page.theme_mode = ft.ThemeMode.LIGHT
+
+    def on_navigation_change(e):
+        selected_index = e.control.selected_index
+        if selected_index == 0:
+            print("Profile Selected")  # Debug
+        elif selected_index == 1:
+            print("Inventory Selected")  # Debug
+        elif selected_index == 2:
+            print("Maps Selected")  # Debug
+
+    page.navigation_bar = ft.NavigationBar(
+        destinations=[ft.NavigationBarDestination(icon=ft.Icons.PERSON, label="Profile"),
+                      ft.NavigationBarDestination(icon=ft.Icons.INVENTORY, label="Inventory"),
+                      ft.NavigationBarDestination(icon=ft.Icons.MAP, label="Maps")],
+        selected_index=0,
+        on_change=on_navigation_change,
+    )
 
     # Get the Character selected from the previous page
     database = SessionLocal()
@@ -47,35 +65,14 @@ def profile_character(page: ft.Page):
         width=600
         )
 
-    ## Bottom Menu
-    def on_navigation_change(e):
-        selected_index = e.control.selected_index
-        if selected_index == 0:
-            print("Profile Selected")  # Debug
-        elif selected_index == 1:
-            print("Inventory Selected")  # Debug
-        elif selected_index == 2:
-            print("Maps Selected")  # Debug
-
-    navigation_bar_bottom = ft.NavigationBar(
-        destinations=[ft.NavigationBarDestination(icon=ft.Icons.PERSON, label="Profile"),
-                      ft.NavigationBarDestination(icon=ft.Icons.INVENTORY, label="Inventory"),
-                      ft.NavigationBarDestination(icon=ft.Icons.MAP, label="Maps")],
-        selected_index=0,
-        on_change=on_navigation_change,
-        bgcolor=ft.Colors.WHITE,
-        indicator_color=ft.Colors.BLUE_ACCENT,
-        surface_tint_color=ft.Colors.BLUE_50,
-    )
-
     ## Layout Building
-    main_content = ft.Container(
+    character_main_data = ft.Container(
         content=ft.Column(controls=[character_data_card, hp_and_sp_bars]),
         expand=True,
     )
 
     return ft.Column(
-        controls=[main_content, navigation_bar_bottom],
+        controls=[character_main_data],
         expand=True,
         height=page.height,
     )
