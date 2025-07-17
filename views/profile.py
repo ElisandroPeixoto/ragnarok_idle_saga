@@ -13,11 +13,11 @@ def profile_character(page: ft.Page):
     def on_navigation_change(e):
         selected_index = e.control.selected_index
         if selected_index == 0:
-            print("Profile Selected")  # Debug
+            pass
         elif selected_index == 1:
-            print("Inventory Selected")  # Debug
+            pass
         elif selected_index == 2:
-            print("Maps Selected")  # Debug
+            pass
 
     page.navigation_bar = ft.NavigationBar(
         destinations=[ft.NavigationBarDestination(icon=ft.Icons.PERSON, label="Profile"),
@@ -42,15 +42,30 @@ def profile_character(page: ft.Page):
     )
 
     column_main_data = ft.Column(controls=[
-        ft.Text(character.name, color=ft.Colors.BLACK, size=20),
-        ft.Text(f"Job: {character.job}", color=ft.Colors.BLACK), 
-        ft.Text(f"Level: {character.level}", color=ft.Colors.BLACK), 
-        ft.Text(f"EXP: {character.exp}", color=ft.Colors.BLACK),
-        ft.Text(f"Zeny: {character.zeny}z", color=ft.Colors.BLACK)],
-        
-        alignment=ft.MainAxisAlignment.CENTER)
+        ft.Text(character.name, color=ft.Colors.BLACK, size=40, weight=ft.FontWeight.BOLD),
 
-    main_card = ft.Row(controls=[character_sprite, column_main_data])
+        ft.Row([ft.Icon(name=ft.Icons.MILITARY_TECH, color=ft.Colors.BLACK),
+                ft.Text(f"Job: {character.job}", color=ft.Colors.BLACK, size=20)]),
+
+        ft.Row([ft.Icon(name=ft.Icons.STAR, color=ft.Colors.BLACK),
+                ft.Text(f"Level: {character.level}", color=ft.Colors.BLACK, size=20),]),
+
+        ft.Row([ft.Icon(name=ft.Icons.TRENDING_UP, color=ft.Colors.BLACK),
+                ft.Text(f"EXP: {character.exp}", color=ft.Colors.BLACK, size=20)]),
+
+        ft.Row([ft.Icon(name=ft.Icons.PAID, color=ft.Colors.BLACK),
+                ft.Text(f"Zeny: {character.zeny}z", color=ft.Colors.BLACK, size=20)]),
+    ],
+
+    )
+
+    main_card = ft.Container(
+        content=ft.Row(controls=[character_sprite, column_main_data], spacing=30),
+        bgcolor=ft.Colors.GREY_300,
+        border=ft.border.all(1, ft.Colors.BLACK),
+        border_radius=10,
+        padding=30,
+        width=600,)
 
     character_data_card = ft.Container(
         content=main_card
