@@ -9,6 +9,32 @@ def profile_character(page: ft.Page):
     page.bgcolor = "#E4E4E4"
     page.scroll = ft.ScrollMode.AUTO
     page.theme_mode = ft.ThemeMode.LIGHT
+    page.vertical_alignment = ft.CrossAxisAlignment.START
+
+
+    # Sidebar
+    def on_sidebar_change(e):
+        selected_index = e.control.selected_index
+        if selected_index == 0:
+            page.go("/"),
+        elif selected_index == 1:
+            pass
+        elif selected_index == 2:
+            pass
+
+    sidebar_drawer = ft.NavigationDrawer(
+        controls=[
+            ft.NavigationDrawerDestination(label="Change Character",
+                                           icon=ft.Icons.PERSON),
+            ft.NavigationDrawerDestination(label="Future Menu 2",
+                                           icon=ft.Icons.SQUARE),
+            ft.NavigationDrawerDestination(label="Future Menu 3",
+                                           icon=ft.Icons.SQUARE),
+        ],
+        on_change=on_sidebar_change,
+    )
+
+    sidebar_button = ft.IconButton(icon=ft.Icons.MENU, on_click=lambda e: page.open(sidebar_drawer))
 
     def on_navigation_change(e):
         selected_index = e.control.selected_index
@@ -87,7 +113,7 @@ def profile_character(page: ft.Page):
     )
 
     return ft.Column(
-        controls=[character_main_data],
+        controls=[sidebar_button, character_main_data],
         expand=True,
         height=page.height,
     )

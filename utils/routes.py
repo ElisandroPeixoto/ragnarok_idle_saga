@@ -8,8 +8,10 @@ def route_handler(route, page: ft.Page):
     page.controls.clear()
 
     if route == "/":
+        page.navigation_bar = None
         page.add(char_selection(page))
     elif route == "/create_char":
+        page.navigation_bar = None
         page.add(create_character(page))
     elif route == "/profile":
         page.add(profile_character(page))
