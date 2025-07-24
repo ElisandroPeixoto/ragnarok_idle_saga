@@ -15,6 +15,7 @@ def char_selection(page: ft.Page):
     page.title = "Character Selection"
     page.theme_mode = ft.ThemeMode.DARK
     page.bgcolor = "#0F131C"
+    page.scroll = True
 
     grid = ft.GridView(
         expand=True,
@@ -37,7 +38,7 @@ def char_selection(page: ft.Page):
             interface = ft.Container(
                 content=ft.Column(controls=[
                         ft.Image(src=image, width=80, height=160, fit=ft.ImageFit.CONTAIN),
-                        ft.Text(char.name, size=20, weight=ft.FontWeight.BOLD),
+                        ft.Text(char.name, size=18, weight=ft.FontWeight.BOLD),
                         ft.Text(char.job, size=14),
                         ft.Text(f"Level: {char.level}", size=14),
                         ft.Text(f"EXP: {char.exp}", size=14),
@@ -136,7 +137,13 @@ def char_selection(page: ft.Page):
     load_characters()
 
     return ft.Column(
-        controls=[ft.Container(height=20), grid, ft.Container(content=buttons_rows, alignment=ft.alignment.center, expand=True, padding=ft.padding.only(top=80))],
+        controls=[ft.Container(height=20),
+                  ft.Text("Characters", size=38),
+                  grid,
+                  ft.Container(content=buttons_rows,
+                               alignment=ft.alignment.center,
+                               expand=True,
+                               padding=ft.padding.only(top=80))],
                   expand=True,
                   horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                   scroll=ft.ScrollMode.AUTO,
