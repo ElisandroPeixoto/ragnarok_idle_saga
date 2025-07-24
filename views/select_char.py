@@ -13,7 +13,8 @@ def char_selection(page: ft.Page):
 
     ### Interface ###
     page.title = "Character Selection"
-    page.bgcolor = "#E4E4E4"
+    page.theme_mode = ft.ThemeMode.DARK
+    page.bgcolor = "#0F131C"
 
     grid = ft.GridView(
         expand=True,
@@ -36,11 +37,11 @@ def char_selection(page: ft.Page):
             interface = ft.Container(
                 content=ft.Column(controls=[
                         ft.Image(src=image, width=80, height=160, fit=ft.ImageFit.CONTAIN),
-                        ft.Text(char.name, size=20, weight=ft.FontWeight.BOLD, color=ft.Colors.BLACK),
-                        ft.Text(char.job, size=14, color=ft.Colors.BLACK),
-                        ft.Text(f"Level: {char.level}", size=14, color=ft.Colors.BLACK),
-                        ft.Text(f"EXP: {char.exp}", size=14, color=ft.Colors.BLACK),
-                        ft.Text(f"HP: {char.hp}", size=14, color=ft.Colors.BLACK)
+                        ft.Text(char.name, size=20, weight=ft.FontWeight.BOLD),
+                        ft.Text(char.job, size=14),
+                        ft.Text(f"Level: {char.level}", size=14),
+                        ft.Text(f"EXP: {char.exp}", size=14),
+                        ft.Text(f"HP: {char.hp}", size=14)
                     ],
                     alignment=ft.MainAxisAlignment.CENTER,
                     tight=True,
@@ -50,7 +51,7 @@ def char_selection(page: ft.Page):
                 padding=10,
                 margin=10,
                 border_radius=10,
-                bgcolor=ft.Colors.WHITE,
+                bgcolor="#2A2C3A",
                 width=180,
                 height=450,
                 alignment=ft.alignment.center,
@@ -78,10 +79,10 @@ def char_selection(page: ft.Page):
         for card in grid.controls:
             if card.data == character:
                 card.border = ft.border.all(3, ft.Colors.BLUE)
-                card.bgcolor = ft.Colors.BLUE_50
+                card.bgcolor = "#111217"
             else:
                 card.border = ft.border.all(3, ft.Colors.TRANSPARENT)
-                card.bgcolor = ft.Colors.WHITE
+                card.bgcolor = "#2A2C3A"
         
         page.update()
     

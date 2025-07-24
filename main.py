@@ -8,12 +8,18 @@ def main(page: ft.Page):
     # Start Database
     init_db()
 
+    # Route Management
     def on_route_change(event):
         route_handler(page.route, page)
 
     page.on_route_change = on_route_change
     page.go(page.route)
 
+    # Load Fonts
+    font_caudex = os.path.join("assets", "fonts", "Caudex-Regular.ttf")
+
+    page.fonts = {"Caudex": font_caudex}
+    page.theme = ft.Theme(font_family="Caudex")
 
 ft.app(target=main, assets_dir="assets")  # Dev Mode
 # ft.app(target=main, assets_dir="assets", view=ft.WEB_BROWSER, port=8080)  # Dev Mode
