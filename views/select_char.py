@@ -18,7 +18,6 @@ def char_selection(page: ft.Page):
     page.scroll = True
 
     grid = ft.GridView(
-        expand=True,
         max_extent=220,
         child_aspect_ratio=0.55,
         spacing=10,
@@ -30,6 +29,16 @@ def char_selection(page: ft.Page):
 
         nonlocal grid
         characters_query = database.query(Character).all()
+
+        # Limit the number of characters in 6
+        if len(characters_query) >= 6:
+            btn_new_char.disabled = True
+            btn_new_char.tooltip = "You reached the limit of characters"
+            btn_new_char.bgcolor = "#555555"
+        else:
+            btn_new_char.disabled = False
+            btn_new_char.tooltip = ""
+            btn_new_char.bgcolor = "#1E3A8A"
         
         # Character Cards
         def character_card(char: Character):
@@ -64,7 +73,26 @@ def char_selection(page: ft.Page):
 
             return interface
 
+        def empty_card():
+            return ft.Container(
+                content=ft.Text("Empty", size=16, italic=True),
+                padding=10,
+                margin=10,
+                border_radius=10,
+                bgcolor="#2A2C3A",
+                width=180,
+                height=450,
+                alignment=ft.alignment.center,
+                shadow=ft.BoxShadow(blur_radius=5, color=ft.Colors.BLACK12, offset=ft.Offset(2, 2)),
+                border=ft.border.all(3, ft.Colors.TRANSPARENT),
+            )
+
         cards = [character_card(char) for char in characters_query]
+
+        while len(cards) < 6:
+            cards.append(empty_card())  # Complete the grid with empty cards
+        cards = cards[:6]  # Limit to 6 characters
+
         grid.controls = cards
         page.update()
         
@@ -95,8 +123,8 @@ def char_selection(page: ft.Page):
         
         def confirm_delete(e):
             CharacterService.delete_character(selected_character.name)
-            load_characters()
             page.close(delete_dialog)
+            load_characters()
             page.update()
 
         def cancel_delete(e):
@@ -137,9 +165,14 @@ def char_selection(page: ft.Page):
     load_characters()
 
     return ft.Column(
-        controls=[ft.Container(height=20),
-                  ft.Text("Characters", size=38),
-                  grid,
+        controls=[ft.Container(content=ft.Text("Characters", size=38),
+                               padding=30,
+                               margin=10),
+                  ft.Row(controls=[ft.Container(content=grid,
+                                                width=1200,
+                                                alignment=ft.alignment.center)],
+                         alignment=ft.MainAxisAlignment.CENTER,
+                         expand=True),
                   ft.Container(content=buttons_rows,
                                alignment=ft.alignment.center,
                                expand=True,
