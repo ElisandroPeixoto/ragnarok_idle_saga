@@ -1,4 +1,6 @@
 import flet as ft
+from flet.core.types import CrossAxisAlignment
+
 from models.db_manager import SessionLocal, Character
 from components import buttons as btns
 from services.character_services import CharacterService
@@ -7,8 +9,10 @@ from services.character_services import CharacterService
 def create_character(page: ft.Page):
     page.title = "Create Character"
     page.bgcolor = "#E4E4E4"
-    page.vertical_alignment = ft.MainAxisAlignment.CENTER
-    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+    page.theme_mode = ft.ThemeMode.DARK
+    page.bgcolor = "#0F131C"
+    page.horizontal_alignment = CrossAxisAlignment.CENTER
+    page.vertical_alignment = CrossAxisAlignment.CENTER
 
     sprite = ft.Image(
         src="char_sprites/0.Novice_Sprite.png",
@@ -19,10 +23,9 @@ def create_character(page: ft.Page):
     
     input_name = ft.TextField(
         label="Character Name",
-        color="#000000",
         width=200,
-        label_style=ft.TextStyle(color=ft.Colors.BLACK),
-        focused_border_color="#0000FF"
+        label_style=ft.TextStyle(color="#E0E0E0"),
+        border_color="#E0E0E0",
         )
     
     confirmation_text = ft.Text(
@@ -55,9 +58,8 @@ def create_character(page: ft.Page):
     btn_create = btns.ElevatedButton1.apply_button(text_input="Create", on_click_input=handle_character_creation)
     btn_back = btns.ElevatedButton1.apply_button(text_input="Back", on_click_input=lambda e: page.go("/"))
 
-    screen_container = ft.Column(
-        controls=[sprite, input_name, confirmation_text, btn_create, btn_back], 
-        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-        )
+    screen_content = ft.Column(controls=[sprite, input_name, confirmation_text, btn_create, btn_back],
+                               horizontal_alignment=ft.CrossAxisAlignment.CENTER)
 
-    return screen_container
+    return ft.Container(content=screen_content,
+                        padding=ft.padding.only(top=100))
