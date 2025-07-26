@@ -18,20 +18,23 @@ def profile_character(page: ft.Page):
     def on_sidebar_change(e):
         selected_index = e.control.selected_index
         if selected_index == 0:
-            page.go("/"),
+            pass
         elif selected_index == 1:
             pass
         elif selected_index == 2:
             pass
+        elif selected_index == 3:
+            pass
+        elif selected_index == 4:
+            page.go("/")
 
     sidebar_drawer = ft.NavigationDrawer(
         controls=[
-            ft.NavigationDrawerDestination(label="Change Character",
-                                           icon=ft.Icons.PERSON),
-            ft.NavigationDrawerDestination(label="Future Menu 2",
-                                           icon=ft.Icons.SQUARE),
-            ft.NavigationDrawerDestination(label="Future Menu 3",
-                                           icon=ft.Icons.SQUARE),
+            ft.NavigationDrawerDestination(label="Account", icon=ft.Icons.ACCOUNT_CIRCLE),
+            ft.NavigationDrawerDestination(label="Quests", icon=ft.Icons.QUESTION_MARK),
+            ft.NavigationDrawerDestination(label="Instances", icon=ft.Icons.MAP),
+            ft.NavigationDrawerDestination(label="Wiki", icon=ft.Icons.MENU_BOOK),
+            ft.NavigationDrawerDestination(label="Change Character", icon=ft.Icons.PEOPLE_ALT_OUTLINED),
         ],
         on_change=on_sidebar_change,
     )
@@ -58,7 +61,7 @@ def profile_character(page: ft.Page):
                       ft.NavigationBarDestination(icon=ft.Icons.PERSON, label="Profile"),
                       ft.NavigationBarDestination(icon=ft.Icons.FLASH_ON, label="Skills"),
                       ft.NavigationBarDestination(icon=ft.Icons.INVENTORY, label="Inventory"),
-                      ft.NavigationBarDestination(icon=ft.Icons.MAP, label="Maps")],
+                      ft.NavigationBarDestination(icon=ft.Icons.PUBLIC, label="Maps")],
         selected_index=0,
         on_change=on_navigation_change,
     )

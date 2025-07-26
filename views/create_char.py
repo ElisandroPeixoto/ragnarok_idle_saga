@@ -26,6 +26,7 @@ def create_character(page: ft.Page):
         width=200,
         label_style=ft.TextStyle(color="#E0E0E0"),
         border_color="#E0E0E0",
+        max_length=12
         )
     
     confirmation_text = ft.Text(
