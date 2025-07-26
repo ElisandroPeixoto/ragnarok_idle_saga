@@ -62,4 +62,8 @@ def create_character(page: ft.Page):
                                horizontal_alignment=ft.CrossAxisAlignment.CENTER)
 
     return ft.Container(content=screen_content,
-                        padding=ft.padding.only(top=100))
+                        border=ft.border.all(1, "#4B4B4B"),
+                        margin=ft.margin.only(top=120),
+                        padding=70,
+                        border_radius=5
+                        )
