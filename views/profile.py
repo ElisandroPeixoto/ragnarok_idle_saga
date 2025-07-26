@@ -8,8 +8,8 @@ def profile_character(page: ft.Page):
     page.title = "Profile"
     page.bgcolor = "#E4E4E4"
     page.scroll = ft.ScrollMode.AUTO
-    page.theme_mode = ft.ThemeMode.LIGHT
-    page.vertical_alignment = ft.CrossAxisAlignment.START
+    page.theme_mode = ft.ThemeMode.DARK
+    page.bgcolor = "#0F131C"
 
 
     # Sidebar
@@ -34,24 +34,33 @@ def profile_character(page: ft.Page):
         on_change=on_sidebar_change,
     )
 
-    sidebar_button = ft.IconButton(icon=ft.Icons.MENU, on_click=lambda e: page.open(sidebar_drawer))
 
+    # Bottom Menu
     def on_navigation_change(e):
         selected_index = e.control.selected_index
         if selected_index == 0:
-            pass
+            page.open(sidebar_drawer)
         elif selected_index == 1:
             pass
         elif selected_index == 2:
             pass
+        elif selected_index == 3:
+            pass
+        elif selected_index == 4:
+            pass
+        elif selected_index == 5:
+            pass
 
     page.navigation_bar = ft.NavigationBar(
-        destinations=[ft.NavigationBarDestination(icon=ft.Icons.PERSON, label="Profile"),
+        destinations=[ft.NavigationBarDestination(icon=ft.Icons.MENU_OPEN, label="Menu"),
+                      ft.NavigationBarDestination(icon=ft.Icons.PERSON, label="Profile"),
+                      ft.NavigationBarDestination(icon=ft.Icons.FLASH_ON, label="Skills"),
                       ft.NavigationBarDestination(icon=ft.Icons.INVENTORY, label="Inventory"),
                       ft.NavigationBarDestination(icon=ft.Icons.MAP, label="Maps")],
         selected_index=0,
         on_change=on_navigation_change,
     )
+
 
     # Get the Character selected from the previous page
     database = SessionLocal()
@@ -59,7 +68,7 @@ def profile_character(page: ft.Page):
     character = database.query(Character).filter_by(name=name_character_ingame).first()
     
 
-    ## Main Card - Character Data
+    # Main Card - Character Data
     character_sprite = ft.Image(
         src=get_char_image_by_job(character.job),
         width=80,
@@ -68,27 +77,27 @@ def profile_character(page: ft.Page):
     )
 
     column_main_data = ft.Column(controls=[
-        ft.Text(character.name, color=ft.Colors.BLACK, size=40, weight=ft.FontWeight.BOLD),
+        ft.Text(character.name, size=40, weight=ft.FontWeight.BOLD, color="#E0E0E0"),
 
-        ft.Row([ft.Icon(name=ft.Icons.MILITARY_TECH, color=ft.Colors.BLACK),
-                ft.Text(f"Job: {character.job}", color=ft.Colors.BLACK, size=20)]),
+        ft.Row([ft.Icon(name=ft.Icons.MILITARY_TECH, color="#E0E0E0"),
+                ft.Text(f"Job: {character.job}", size=20, color="#E0E0E0")]),
 
-        ft.Row([ft.Icon(name=ft.Icons.STAR, color=ft.Colors.BLACK),
-                ft.Text(f"Level: {character.level}", color=ft.Colors.BLACK, size=20),]),
+        ft.Row([ft.Icon(name=ft.Icons.STAR, color="#E0E0E0"),
+                ft.Text(f"Level: {character.level}", size=20, color="#E0E0E0")]),
 
-        ft.Row([ft.Icon(name=ft.Icons.TRENDING_UP, color=ft.Colors.BLACK),
-                ft.Text(f"EXP: {character.exp}", color=ft.Colors.BLACK, size=20)]),
+        ft.Row([ft.Icon(name=ft.Icons.TRENDING_UP, color="#E0E0E0"),
+                ft.Text(f"EXP: {character.exp}", size=20, color="#E0E0E0")]),
 
-        ft.Row([ft.Icon(name=ft.Icons.PAID, color=ft.Colors.BLACK),
-                ft.Text(f"Zeny: {character.zeny}z", color=ft.Colors.BLACK, size=20)]),
+        ft.Row([ft.Icon(name=ft.Icons.PAID, color="#E0E0E0"),
+                ft.Text(f"Zeny: {character.zeny}z", size=20, color="#E0E0E0")]),
     ],
 
     )
 
     main_card = ft.Container(
         content=ft.Row(controls=[character_sprite, column_main_data], spacing=30),
-        bgcolor=ft.Colors.GREY_300,
-        border=ft.border.all(1, ft.Colors.BLACK),
+        bgcolor="#2A2C3A",
+        border=ft.border.all(1, "#000000"),
         border_radius=10,
         padding=30,
         width=600,)
@@ -113,7 +122,7 @@ def profile_character(page: ft.Page):
     )
 
     return ft.Column(
-        controls=[sidebar_button, character_main_data],
+        controls=[character_main_data],
         expand=True,
         height=page.height,
     )

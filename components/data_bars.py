@@ -15,18 +15,18 @@ def build_hp_bar(current_hp: int, max_hp: int, bar_width: int = 300):
     hp_bar = ft.Container(
         width=bar_width,
         padding=10,
-        bgcolor=ft.Colors.GREY_300,
+        bgcolor="#2A2C3A",
         border=ft.border.all(1, ft.Colors.BLACK),
         border_radius=5,
         content=ft.Column([
-            ft.Text("HP", color=ft.Colors.BLACK),
+            ft.Text("HP"),
             ft.Container(
                 width=bar_width * hp_percent,
                 height=15,
                 bgcolor=color,
                 border_radius=5
             ),
-            ft.Text(f"{current_hp}/{max_hp}", size=12, color=ft.Colors.BLACK)
+            ft.Text(f"{current_hp}/{max_hp}", size=12)
         ])
     )
 
@@ -47,18 +47,18 @@ def build_sp_bar(current_sp: int, max_sp: int, bar_width: int = 300):
     sp_bar = ft.Container(
         width=bar_width,
         padding=10,
-        bgcolor=ft.Colors.GREY_300,
+        bgcolor="#2A2C3A",
         border=ft.border.all(1, ft.Colors.BLACK),
         border_radius=5,
         content=ft.Column([
-            ft.Text("SP", color=ft.Colors.BLACK),
+            ft.Text("SP"),
             ft.Container(
                 width=bar_width * sp_percent,
                 height=15,
                 bgcolor=color,
                 border_radius=5
             ),
-            ft.Text(f"{current_sp}/{max_sp}", size=12, color=ft.Colors.BLACK)
+            ft.Text(f"{current_sp}/{max_sp}", size=12)
         ])
     )
 
