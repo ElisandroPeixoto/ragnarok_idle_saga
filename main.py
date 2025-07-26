@@ -16,7 +16,7 @@ def main(page: ft.Page):
     page.go(page.route)
 
     # Load Fonts
-    font_caudex = os.path.join("assets", "fonts", "Caudex-Regular.ttf")
+    font_caudex = "fonts/Caudex-Regular.ttf"
 
     page.fonts = {"Caudex": font_caudex}
     page.theme = ft.Theme(font_family="Caudex")

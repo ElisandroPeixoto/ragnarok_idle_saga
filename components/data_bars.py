@@ -1,7 +1,7 @@
 import flet as ft
 
 
-def build_hp_bar(current_hp: int, max_hp: int, bar_width: int = 300):
+def build_hp_bar(current_hp: int, max_hp: int, bar_width: int = 600):
     hp_percent = current_hp/max_hp
 
     if hp_percent > 0.6:
@@ -33,7 +33,7 @@ def build_hp_bar(current_hp: int, max_hp: int, bar_width: int = 300):
     return hp_bar
 
 
-def build_sp_bar(current_sp: int, max_sp: int, bar_width: int = 300):
+def build_sp_bar(current_sp: int, max_sp: int, bar_width: int = 600):
     sp_percent = current_sp/max_sp
 
     if sp_percent > 0.6:

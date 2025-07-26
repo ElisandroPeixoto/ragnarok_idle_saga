@@ -10,6 +10,8 @@ def profile_character(page: ft.Page):
     page.scroll = ft.ScrollMode.AUTO
     page.theme_mode = ft.ThemeMode.DARK
     page.bgcolor = "#0F131C"
+    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+    page.vertical_alignment = ft.CrossAxisAlignment.CENTER
 
 
     # Sidebar
@@ -77,19 +79,19 @@ def profile_character(page: ft.Page):
     )
 
     column_main_data = ft.Column(controls=[
-        ft.Text(character.name, size=40, weight=ft.FontWeight.BOLD, color="#E0E0E0"),
+        ft.Text(character.name, size=32, weight=ft.FontWeight.BOLD, color="#E0E0E0"),
 
         ft.Row([ft.Icon(name=ft.Icons.MILITARY_TECH, color="#E0E0E0"),
-                ft.Text(f"Job: {character.job}", size=20, color="#E0E0E0")]),
+                ft.Text(f"Job: {character.job}", size=18, color="#E0E0E0")]),
 
         ft.Row([ft.Icon(name=ft.Icons.STAR, color="#E0E0E0"),
-                ft.Text(f"Level: {character.level}", size=20, color="#E0E0E0")]),
+                ft.Text(f"Level: {character.level}", size=18, color="#E0E0E0")]),
 
         ft.Row([ft.Icon(name=ft.Icons.TRENDING_UP, color="#E0E0E0"),
-                ft.Text(f"EXP: {character.exp}", size=20, color="#E0E0E0")]),
+                ft.Text(f"EXP: {character.exp}", size=18, color="#E0E0E0")]),
 
         ft.Row([ft.Icon(name=ft.Icons.PAID, color="#E0E0E0"),
-                ft.Text(f"Zeny: {character.zeny}z", size=20, color="#E0E0E0")]),
+                ft.Text(f"Zeny: {character.zeny}z", size=18, color="#E0E0E0")]),
     ],
 
     )
@@ -109,7 +111,7 @@ def profile_character(page: ft.Page):
     ## HP and SP
     hp_and_sp_bars = ft.Container(
         content=ft.ResponsiveRow(
-            controls=[ft.Column([build_hp_bar(character.hp, character.max_hp)], col={"sm": 12, "md": 6}), 
+            controls=[ft.Column([build_hp_bar(character.hp, character.max_hp)], col={"sm": 12, "md": 6}),
                       ft.Column([build_sp_bar(character.sp, character.max_sp)], col={"sm": 12, "md": 6})]),
         expand=True,
         width=600
